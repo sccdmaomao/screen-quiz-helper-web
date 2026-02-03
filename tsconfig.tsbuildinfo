@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/i18n.ts","./src/main.tsx","./src/api/groq.ts","./src/components/languageswitcher.tsx","./src/hooks/usescreencapture.ts","./vite-env.d.ts"],"version":"5.9.3"}
