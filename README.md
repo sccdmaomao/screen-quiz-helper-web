@@ -38,7 +38,7 @@ A workflow runs on push to `main` or `master` and deploys to S3.
 1. Create an S3 bucket with static website hosting enabled
 2. Set bucket policy for public read (or use CloudFront)
 3. Create an IAM user with `s3:PutObject`, `s3:GetObject`, `s3:DeleteObject`, `s3:ListBucket`
-4. Add GitHub secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `S3_BUCKET`, `GROQ_API_KEY`
+4. Add GitHub secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `S3_BUCKET`
 5. Push to `main` or `master` to trigger deploy
 
 ### Option B: Manual
@@ -54,8 +54,8 @@ aws s3 sync dist/ s3://YOUR-BUCKET-NAME --delete
 4. If using a custom domain, configure CloudFront and Route 53
 5. For SPA routing, set error document to `index.html` in S3 static hosting config
 
-## Environment
+## API Key
 
-- **Local dev:** Copy `.env.example` to `.env` and set `VITE_GROQ_API_KEY`
-- **GitHub Actions:** Add `GROQ_API_KEY` as a repository secret; it is injected at build time
-- No backend required – calls Groq API directly from the browser
+- API key is stored in **localStorage** only (entered by the user in the app)
+- On first use, the app prompts for a Groq API key; get one at [console.groq.com](https://console.groq.com)
+- No build-time secrets or backend required

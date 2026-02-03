@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { askVisionLLM } from './api/groq'
+import { askVisionLLM, hasApiKey, setApiKey } from './api/groq'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { useScreenCapture } from './hooks/useScreenCapture'
 
@@ -10,6 +10,8 @@ function App() {
   const [status, setStatus] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [captureActive, setCaptureActive] = useState(false)
+  const [apiKeyInput, setApiKeyInput] = useState('')
+  const [needsKey, setNeedsKey] = useState(!hasApiKey())
 
   const { stream, error, videoRef, startCapture, stopCapture, captureFullFrame } =
     useScreenCapture()
@@ -35,7 +37,23 @@ function App() {
     setCaptureActive(false)
   }, [stopCapture])
 
+  const handleSaveApiKey = useCallback(() => {
+    const key = apiKeyInput.trim()
+    if (key) {
+      setApiKey(key)
+      setNeedsKey(false)
+      setApiKeyInput('')
+    } else {
+      setStatus(t('status.enterApiKey'))
+    }
+  }, [apiKeyInput, t])
+
   const handleAskLLM = useCallback(async () => {
+    if (!hasApiKey()) {
+      setNeedsKey(true)
+      setStatus(t('status.enterApiKey'))
+      return
+    }
     if (!stream) {
       setStatus(t('status.selectRegion'))
       return
@@ -57,6 +75,10 @@ function App() {
     }
   }, [stream, captureFullFrame, t])
 
+  useEffect(() => {
+    setNeedsKey(!hasApiKey())
+  }, [])
+
   return (
     <div
       style={{
@@ -73,6 +95,60 @@ function App() {
       <p style={{ color: '#a6adc8', fontSize: 14, marginBottom: 24 }}>
         {t('subtitle')}
       </p>
+
+      {needsKey && (
+        <div
+          style={{
+            padding: 16,
+            background: '#313244',
+            borderRadius: 8,
+            marginBottom: 16,
+          }}
+        >
+          <div style={{ fontSize: 13, color: '#a6adc8', marginBottom: 8 }}>
+            {t('apiKeyLabel')}
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <input
+              type="password"
+              value={apiKeyInput}
+              onChange={(e) => setApiKeyInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSaveApiKey()}
+              placeholder="gsk_..."
+              style={{
+                flex: 1,
+                minWidth: 200,
+                padding: 10,
+                background: '#1e1e2e',
+                border: '1px solid #45475a',
+                borderRadius: 8,
+                color: '#cdd6f4',
+                fontSize: 14,
+              }}
+            />
+            <button
+              onClick={handleSaveApiKey}
+              style={{
+                padding: '10px 16px',
+                background: '#89b4fa',
+                border: 'none',
+                borderRadius: 8,
+                color: '#1e1e2e',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+              }}
+            >
+              {t('save')}
+            </button>
+          </div>
+          <p style={{ fontSize: 12, color: '#6c7086', marginTop: 8, marginBottom: 0 }}>
+            {t('apiKeyHint')}{' '}
+            <a href="https://console.groq.com" target="_blank" rel="noreferrer" style={{ color: '#89b4fa' }}>
+              console.groq.com
+            </a>
+          </p>
+        </div>
+      )}
 
       {error && (
         <div

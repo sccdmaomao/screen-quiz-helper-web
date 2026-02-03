@@ -3,6 +3,7 @@
   "subtitle": "分享应用窗口，获取 AI 答案。",
   "apiKeyLabel": "Groq API 密钥",
   "apiKeyHint": "在下方链接获取免费密钥：",
+  "save": "保存",
   "shareScreen": "分享应用窗口",
   "sharing": "分享中...",
   "answer": "答案",

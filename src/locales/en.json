@@ -3,6 +3,7 @@
   "subtitle": "Share your application window and get AI answers.",
   "apiKeyLabel": "Groq API Key",
   "apiKeyHint": "Get a free key at ",
+  "save": "Save",
   "shareScreen": "Share Window",
   "sharing": "Sharing...",
   "answer": "Answer",
