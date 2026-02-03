@@ -1,0 +1,23 @@
+{
+  "title": "Screen Quiz Helper",
+  "subtitle": "Share your application window and get AI answers.",
+  "apiKeyLabel": "Groq API Key",
+  "apiKeyHint": "Get a free key at ",
+  "shareScreen": "Share Window",
+  "sharing": "Sharing...",
+  "answer": "Answer",
+  "status": {
+    "enterApiKey": "Enter your Groq API key first.",
+    "selectRegion": "Share a window first.",
+    "capturing": "Capturing and sending to LLM...",
+    "done": "Done.",
+    "cancelled": "Screen capture cancelled or failed.",
+    "llmFailed": "LLM request failed"
+  },
+  "capture": {
+    "hint": "Window shared. Click Ask LLM to get the answer for the next question.",
+    "askLLM": "Ask LLM",
+    "asking": "Asking...",
+    "stop": "Stop"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "title": "屏幕答题助手",
+  "subtitle": "分享应用窗口，获取 AI 答案。",
+  "apiKeyLabel": "Groq API 密钥",
+  "apiKeyHint": "在下方链接获取免费密钥：",
+  "shareScreen": "分享应用窗口",
+  "sharing": "分享中...",
+  "answer": "答案",
+  "status": {
+    "enterApiKey": "请先输入 Groq API 密钥。",
+    "selectRegion": "请先分享窗口。",
+    "capturing": "正在截图并发送给 LLM...",
+    "done": "完成。",
+    "cancelled": "屏幕分享已取消或失败。",
+    "llmFailed": "LLM 请求失败"
+  },
+  "capture": {
+    "hint": "窗口已共享。切换问题后点击「询问 LLM」获取下一题答案。",
+    "askLLM": "询问 LLM",
+    "asking": "询问中...",
+    "stop": "停止"
+  }
+}
